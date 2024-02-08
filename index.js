@@ -56,36 +56,37 @@ const welcomeScreen = [
     init()
 
     function viewAllEmployees() {
-    db.query('SELECT first_name, last_name FROM employee_db.employee;', (err, data) => {
-        if(err){
-            console.log(err)
-        } else {
-            console.table(data)
+        db.query('SELECT first_name, last_name FROM employee_db.employee;', (err, data) => {
+            if(err){
+             console.log(err)
+        }   else {
+             console.table(data)
         }
+            init()
     }
-    )}
+        )}
 
     function addEmployee() {
-        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
-        //     if(err){
-        //         console.log(err)
-        //     } else {
-        //         console.table(data)
-        //     }
-        // }
-        // )
-    }
+        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+            init()
+        }
+        )}
 
     function updateEmployeeRole() {
-        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
-        //     if(err){
-        //         console.log(err)
-        //     } else {
-        //         console.table(data)
-        //     }
-        // }
-        // )
-    }
+        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+            init()
+        }
+        )}
 
     function viewAllRoles() {
         db.query('SELECT * FROM employee_db.role;', (err, data) => {
@@ -94,21 +95,21 @@ const welcomeScreen = [
             } else {
                 console.table(data)
             }
+            init()
         }
-        )
-    }
+        )}
 
 
     function addRole() {
-        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
-        //     if(err){
-        //         console.log(err)
-        //     } else {
-        //         console.table(data)
-        //     }
-        // }
-        // )
-    }
+        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+            init()
+        }
+        )}
 
 
     function viewAllDepartments() {
@@ -118,18 +119,18 @@ const welcomeScreen = [
             } else {
                 console.table(data)
             }
+            init()
         }
-        )
-    }
+        )}
 
 
     function addDepartment() {
-        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
-        //     if(err){
-        //         console.log(err)
-        //     } else {
-        //         console.table(data)
-        //     }
-        // }
-        // )
-    }
+        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+            init()
+        }
+        )}
