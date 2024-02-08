@@ -31,9 +31,12 @@ const welcomeScreen = [
 
     init()
 
-    // function viewAllEmployees() {
-    // const list = db.query('SELECT first_name, last_name FROM employee_db.employee;')
-    // console.table
-
-    // }
-    
+    function viewAllEmployees() {
+    db.query('SELECT first_name, last_name FROM employee_db.employee;', (err, data) => {
+        if(err){
+            console.log(err)
+        } else {
+            console.table(data)
+        }
+    }
+    )}
