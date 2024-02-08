@@ -25,6 +25,10 @@ const welcomeScreen = [
         switch(response.text) {
             case 'View All Employees':
                 viewAllEmployees()
+                break;
+            case 'View All Departments':
+                viewAllDepartments()
+                break;
         }
         })
     }
@@ -40,3 +44,14 @@ const welcomeScreen = [
         }
     }
     )}
+
+    function viewAllDepartments() {
+        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+        }
+        )
+    }
