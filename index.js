@@ -28,26 +28,26 @@ const welcomeScreen = [
                 break;
 
             case 'Add Employee':
-                viewAllDepartments()
+                addEmployee()
                 break;
 
             case 'Update Employee Role':
-                viewAllEmployees()
+                updateEmployeeRole()
                  break;
 
             case 'View All Roles':
-                viewAllDepartments()
+                viewAllRoles()
                 break;
 
             case 'Add Role':
-                viewAllEmployees()
+                addRole()
                 break;
 
             case 'View All Departments':
                 viewAllDepartments()
                 break;
             case 'Add Department':
-                viewAllDepartments()
+                addDepartment()
                 break;
         }
         })
@@ -88,14 +88,14 @@ const welcomeScreen = [
     }
 
     function viewAllRoles() {
-        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
-        //     if(err){
-        //         console.log(err)
-        //     } else {
-        //         console.table(data)
-        //     }
-        // }
-        // )
+        db.query('SELECT * FROM employee_db.role;', (err, data) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.table(data)
+            }
+        }
+        )
     }
 
 
