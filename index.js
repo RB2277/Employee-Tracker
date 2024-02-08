@@ -26,7 +26,27 @@ const welcomeScreen = [
             case 'View All Employees':
                 viewAllEmployees()
                 break;
+
+            case 'Add Employee':
+                viewAllDepartments()
+                break;
+
+            case 'Update Employee Role':
+                viewAllEmployees()
+                 break;
+
+            case 'View All Roles':
+                viewAllDepartments()
+                break;
+
+            case 'Add Role':
+                viewAllEmployees()
+                break;
+
             case 'View All Departments':
+                viewAllDepartments()
+                break;
+            case 'Add Department':
                 viewAllDepartments()
                 break;
         }
