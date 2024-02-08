@@ -65,6 +65,52 @@ const welcomeScreen = [
     }
     )}
 
+    function addEmployee() {
+        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        //     if(err){
+        //         console.log(err)
+        //     } else {
+        //         console.table(data)
+        //     }
+        // }
+        // )
+    }
+
+    function updateEmployeeRole() {
+        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        //     if(err){
+        //         console.log(err)
+        //     } else {
+        //         console.table(data)
+        //     }
+        // }
+        // )
+    }
+
+    function viewAllRoles() {
+        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        //     if(err){
+        //         console.log(err)
+        //     } else {
+        //         console.table(data)
+        //     }
+        // }
+        // )
+    }
+
+
+    function addRole() {
+        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        //     if(err){
+        //         console.log(err)
+        //     } else {
+        //         console.table(data)
+        //     }
+        // }
+        // )
+    }
+
+
     function viewAllDepartments() {
         db.query('SELECT * FROM employee_db.department;', (err, data) => {
             if(err){
@@ -74,4 +120,16 @@ const welcomeScreen = [
             }
         }
         )
+    }
+
+
+    function addDepartment() {
+        // db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        //     if(err){
+        //         console.log(err)
+        //     } else {
+        //         console.table(data)
+        //     }
+        // }
+        // )
     }
