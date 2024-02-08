@@ -16,14 +16,14 @@ VALUES ('Lead Engineer', 99999, 1),
        ('Salesperson', 80000, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Frederick', 'Frankenstein', 1, NULL),
-       ('Truman', 'Burbank', 2, 1),
-       ('Don', 'Quixote', 3, NULL),
-       ('Verzik', 'Vitur', 4, 3),
-       ('Edward', 'Teach', 5, NULL),
-       ('Nikita', 'Buyanov', 6, 5),
-       ('Pat', 'Mcafee', 7, NULL),
-       ('Claude', 'Monet', 8, 7);
+VALUES ('Joe', 'Franklin', 1, NULL),
+       ('Jonathan', 'Jacobs', 2, 1),
+       ('Michael', 'Chandler', 3, NULL),
+       ('Ashley', 'Stafford', 4, 3),
+       ('Daniel', 'Mclaughlin', 5, NULL),
+       ('Philip', 'Green', 6, 5),
+       ('Andrea', 'Maple', 7, NULL),
+       ('Brandon', 'Kai', 8, 7);
 
        
 
