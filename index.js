@@ -92,7 +92,7 @@ const welcomeScreen = [
         )}
     //Function to query and view all roles
     function viewAllRoles() {
-        db.query('SELECT * FROM employee_db.role;', (err, data) => {
+        db.query('SELECT role.title, department.name, role.salary FROM role JOIN department ON role.department_id = department.id;', (err, data) => {
             if(err){
                 console.log(err)
             } else {
