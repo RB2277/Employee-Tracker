@@ -125,12 +125,19 @@ const welcomeScreen = [
 
 
     function addDepartment() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
-            if(err){
-                console.log(err)
-            } else {
-                console.table(data)
+        inquirer.prompt({
+            type: 'text',
+            message: 'What is the name of the department you would like to add?',
+            name: 'department'
+        }) .then((res) => {
+            db.query(`INSERT INTO department (name) VALUES (?)`, [res.department], (err, data) => {
+                if(err){
+                    console.log(err)
+                } else {
+                    console.log("Department successfully added!")
+                }
+                init()
             }
-            init()
-        }
-        )}
+            )
+        })
+    }
