@@ -63,7 +63,7 @@ const welcomeScreen = [
         employee.first_name,
         employee.last_name,
         role.title,
-        department.name,
+        department.name AS department,
         role.salary,
         CONCAT(manager.first_name, ' ', manager.last_name) AS manager
         FROM employee 
@@ -168,7 +168,7 @@ const welcomeScreen = [
 
     //Function to view all roles
     function viewAllRoles() {
-        db.query('SELECT role.title, department.name, role.salary FROM role JOIN department ON role.department_id = department.id;', (err, data) => {
+        db.query('SELECT role.id, role.title, department.name AS department, role.salary FROM role JOIN department ON role.department_id = department.id;', (err, data) => {
             if(err){
                 console.log(err)
             } else {
