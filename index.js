@@ -58,7 +58,18 @@ const welcomeScreen = [
 
     //Function that queries a list of all employees
     function viewAllEmployees() {
-        db.query('SELECT first_name, last_name FROM employee_db.employee;', (err, data) => {
+        db.query(`SELECT 
+        employee.id,
+        employee.first_name,
+        employee.last_name,
+        role.title,
+        department.name,
+        role.salary,
+        CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+        FROM employee 
+        JOIN role ON employee.role_id = role.id
+        JOIN department ON role.department_id = department.id
+        LEFT JOIN employee AS manager ON employee.manager_id = manager.id`, (err, data) => {
             if(err){
              console.log(err)
         }   else {
@@ -102,17 +113,47 @@ const welcomeScreen = [
         }
         )}
 
-    //Function to add a role. NOT YET WORKING
+
+
+
+
+    //Function to add a role
     function addRole() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        db.query('SELECT * FROM department', (err, departments) =>{
+
+        const departmentList = departments.map(department => ({
+        name: department.name,
+        value: department.id
+        }));
+        inquirer.prompt([
+        {
+            type: 'text',
+            message: 'What is the name of the role?',
+            name: 'role'
+        },
+        {   type: 'text',
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {   type: 'list',
+            message: 'What department does the role belong to?',
+            name: 'department',
+            choices: departmentList
+        }
+    ]).then((res) => {
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`, [res.role, res.salary, res.department], (err, data) => {
             if(err){
                 console.log(err)
             } else {
-                console.table(data)
-            }
-            init()
-        }
-        )}
+                    console.log("Role successfully added!")
+                    init()
+                }})
+        })
+           })
+
+    }
+    
+
 
     //Function to query and view all departments
     function viewAllDepartments() {
