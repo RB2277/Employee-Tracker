@@ -56,9 +56,20 @@ const welcomeScreen = [
     //Calls the init function above as soon as the application starts
     init()
 
-    //Function that queries a list of all employees
+    //Function that lists all employees
     function viewAllEmployees() {
-        db.query('SELECT first_name, last_name FROM employee_db.employee;', (err, data) => {
+        db.query(`SELECT 
+        employee.id,
+        employee.first_name,
+        employee.last_name,
+        role.title,
+        department.name,
+        role.salary,
+        CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+        FROM employee 
+        JOIN role ON employee.role_id = role.id
+        JOIN department ON role.department_id = department.id
+        LEFT JOIN employee AS manager ON employee.manager_id = manager.id`, (err, data) => {
             if(err){
              console.log(err)
         }   else {
@@ -67,6 +78,7 @@ const welcomeScreen = [
             init()
     }
         )}
+
 
     //Function that adds an employee. NOT YET WORKING
     function addEmployee() {
@@ -79,20 +91,48 @@ const welcomeScreen = [
             init()
         }
         )}
+
+
     //Function to change the role of a specific employee. NOT YET WORKING
     function updateEmployeeRole() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
-            if(err){
-                console.log(err)
-            } else {
-                console.table(data)
+        db.query(`SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee`, (err, employees) =>{
+            const employeeList = employees.map(employee => ({
+            name: employee.name,
+            value: employee.id
+            }));
+            db.query(`SELECT id, title FROM role`, (err, roles) =>{
+            const roleList = roles.map(role => ({
+            name: role.title,
+            value: role.id
+            }))
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: "What employee's role do you want to update?",
+                name: 'employee',
+                choices: employeeList
+            },
+            {
+                type: 'list',
+                message: "Which role do you want to assign the selected employee?",
+                name: 'role',
+                choices: roleList
             }
-            init()
-        }
-        )}
-    //Function to query and view all roles
+        ]) .then((res) => {
+            db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [res.role, res.employee], (err, data) => {
+                if(err){
+                    console.log(err)
+                } else {
+                        console.log("Employee successfully updated!")
+                        init()
+                    }})
+        })
+    })
+})}
+
+    //Function to view all roles
     function viewAllRoles() {
-        db.query('SELECT * FROM employee_db.role;', (err, data) => {
+        db.query('SELECT role.title, department.name, role.salary FROM role JOIN department ON role.department_id = department.id;', (err, data) => {
             if(err){
                 console.log(err)
             } else {
@@ -102,19 +142,48 @@ const welcomeScreen = [
         }
         )}
 
-    //Function to add a role. NOT YET WORKING
+
+
+
+
+    //Function to add a role
     function addRole() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
+        db.query('SELECT * FROM department', (err, departments) =>{
+
+        const departmentList = departments.map(department => ({
+        name: department.name,
+        value: department.id
+        }));
+        inquirer.prompt([
+        {
+            type: 'text',
+            message: 'What is the name of the role?',
+            name: 'role'
+        },
+        {   type: 'text',
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {   type: 'list',
+            message: 'What department does the role belong to?',
+            name: 'department',
+            choices: departmentList
+        }
+    ]).then((res) => {
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`, [res.role, res.salary, res.department], (err, data) => {
             if(err){
                 console.log(err)
             } else {
-                console.table(data)
-            }
-            init()
-        }
-        )}
+                    console.log("Role successfully added!")
+                    init()
+                }})
+        })
+           })
 
-    //Function to query and view all departments
+    }
+    
+
+    //Function to view all departments
     function viewAllDepartments() {
         db.query('SELECT * FROM employee_db.department;', (err, data) => {
             if(err){
@@ -125,6 +194,7 @@ const welcomeScreen = [
             init()
         }
         )}
+
 
     //Function to add a department
     function addDepartment() {
