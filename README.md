@@ -22,9 +22,9 @@ Clone the repository. Run npm install within the console to install the correct 
 
 For a walkthrough video on using the app, please visit this link! 
 
-Lorem
+https://drive.google.com/file/d/1py_7DtZC5YtToYPC-FKNHsbV6Yq3Jihb/view?usp=sharing
 
-![Example Image of the site](./assets/images/exampleimage.png)
+![Example Image of the site](./assets/images/image.png)
 
 ## Credits
 
