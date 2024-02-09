@@ -82,15 +82,51 @@ const welcomeScreen = [
 
     //Function that adds an employee. NOT YET WORKING
     function addEmployee() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
-            if(err){
-                console.log(err)
-            } else {
-                console.table(data)
-            }
-            init()
-        }
-        )}
+        db.query(`SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee`, (err, employees) =>{
+            const employeeList = [{ name: 'None', value: null}].concat(employees.map(employee => ({
+            name: employee.name,
+            value: employee.id
+            })));
+            db.query(`SELECT id, title FROM role`, (err, roles) =>{
+            const roleList = roles.map(role => ({
+            name: role.title,
+            value: role.id
+            }))
+        inquirer.prompt([
+            {
+                type: 'text',
+                message: "What is the employee's first name?",
+                name: 'fname',
+            },
+            {
+                type: 'text',
+                message: "What is the employee's last name?",
+                name: 'lname',
+            },
+            {
+                type: 'list',
+                message: "What is the employee's role",
+                name: 'role',
+                choices: roleList
+            },
+            {
+                type: 'list',
+                message: "Who is the employee's manager",
+                name: 'manager',
+                choices: employeeList
+            },
+        ]).then((res) => {
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [res.fname, res.lname, res.role, res.manager], (err, data) => {
+                if(err){
+                    console.log(err)
+                } else {
+                        console.log("Employee successfully added!")
+                        init()
+                    }})
+        })
+    })}
+    )}
+
 
 
     //Function to change the role of a specific employee. NOT YET WORKING
@@ -214,3 +250,13 @@ const welcomeScreen = [
             )
         })
     }
+
+    /*
+    Ideas for future improvements
+    
+Application allows users to update employee managers
+Application allows users to view employees by manager 
+Application allows users to view employees by department
+Application allows users to delete departments, roles, and employees 
+Application allows users to view the total utilized budget of a department—in other words, the combined salaries of all employees in that department
+    */
