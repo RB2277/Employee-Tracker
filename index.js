@@ -97,7 +97,8 @@ const welcomeScreen = [
             if(err){
              console.log(err)
         }   else {
-             console.table(data)
+            console.log("Listing every employee")
+            console.table(data)
         }
             init()
     }
@@ -196,6 +197,7 @@ const welcomeScreen = [
             if(err){
                 console.log(err)
             } else {
+                console.log("Listing every role")
                 console.table(data)
             }
             init()
@@ -249,6 +251,7 @@ const welcomeScreen = [
             if(err){
                 console.log(err)
             } else {
+                console.log("Listing every department")
                 console.table(data)
             }
             init()
