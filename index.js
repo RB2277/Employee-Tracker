@@ -56,7 +56,7 @@ const welcomeScreen = [
     //Calls the init function above as soon as the application starts
     init()
 
-    //Function that queries a list of all employees
+    //Function that lists all employees
     function viewAllEmployees() {
         db.query(`SELECT 
         employee.id,
@@ -79,6 +79,7 @@ const welcomeScreen = [
     }
         )}
 
+
     //Function that adds an employee. NOT YET WORKING
     function addEmployee() {
         db.query('SELECT * FROM employee_db.department;', (err, data) => {
@@ -90,18 +91,46 @@ const welcomeScreen = [
             init()
         }
         )}
+
+
     //Function to change the role of a specific employee. NOT YET WORKING
     function updateEmployeeRole() {
-        db.query('SELECT * FROM employee_db.department;', (err, data) => {
-            if(err){
-                console.log(err)
-            } else {
-                console.table(data)
+        db.query(`SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee`, (err, employees) =>{
+            const employeeList = employees.map(employee => ({
+            name: employee.name,
+            value: employee.id
+            }));
+            db.query(`SELECT id, title FROM role`, (err, roles) =>{
+            const roleList = roles.map(role => ({
+            name: role.title,
+            value: role.id
+            }))
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: "What employee's role do you want to update?",
+                name: 'employee',
+                choices: employeeList
+            },
+            {
+                type: 'list',
+                message: "Which role do you want to assign the selected employee?",
+                name: 'role',
+                choices: roleList
             }
-            init()
-        }
-        )}
-    //Function to query and view all roles
+        ]) .then((res) => {
+            db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [res.role, res.employee], (err, data) => {
+                if(err){
+                    console.log(err)
+                } else {
+                        console.log("Employee successfully updated!")
+                        init()
+                    }})
+        })
+    })
+})}
+
+    //Function to view all roles
     function viewAllRoles() {
         db.query('SELECT role.title, department.name, role.salary FROM role JOIN department ON role.department_id = department.id;', (err, data) => {
             if(err){
@@ -154,8 +183,7 @@ const welcomeScreen = [
     }
     
 
-
-    //Function to query and view all departments
+    //Function to view all departments
     function viewAllDepartments() {
         db.query('SELECT * FROM employee_db.department;', (err, data) => {
             if(err){
@@ -166,6 +194,7 @@ const welcomeScreen = [
             init()
         }
         )}
+
 
     //Function to add a department
     function addDepartment() {
