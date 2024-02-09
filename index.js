@@ -5,7 +5,7 @@ const db = require('./config/connect')
 
 
 
-
+//Displays when the app is first started
 console.log(`
 
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    
@@ -104,7 +104,7 @@ const welcomeScreen = [
         )}
 
 
-    //Function that adds an employee. NOT YET WORKING
+    //Function that adds an employee
     function addEmployee() {
         db.query(`SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee`, (err, employees) =>{
             const employeeList = [{ name: 'None', value: null}].concat(employees.map(employee => ({
